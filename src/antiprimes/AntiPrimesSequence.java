@@ -39,7 +39,6 @@ public class AntiPrimesSequence {
     public void computeNext() {
         NumberProcessor np = new NumberProcessor(this);
         np.start();
-        /*antiPrimes.add(AntiPrimes.nextAntiPrimeAfter(getLast()));*/
     }
 
     /**
