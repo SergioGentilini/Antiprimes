@@ -24,7 +24,6 @@ public class NumberProcessor extends Thread{
     }
 
     public Number getNextToProcess() {
-        System.out.println("getNextToProcess: " + numeroSuccessivo.getValue());
         return numeroSuccessivo;
     }
 

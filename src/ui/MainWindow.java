@@ -67,7 +67,11 @@ public class MainWindow extends JFrame implements Observer {
     }
 
     public void update() {
-        updateDisplay();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                updateDisplay();
+            }
+        });
     }
 
     /**
