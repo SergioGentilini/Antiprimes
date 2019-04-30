@@ -1,5 +1,6 @@
 package ui;
 
+import Threads.Observer;
 import antiprimes.AntiPrimesSequence;
 import antiprimes.Number;
 
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * The application window.
  */
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements Observer {
 
     private AntiPrimesSequence sequence;
     private DefaultListModel display = new DefaultListModel();
@@ -24,6 +25,7 @@ public class MainWindow extends JFrame {
      */
     public MainWindow(AntiPrimesSequence sequence) {
         this.sequence = sequence;
+        sequence.addObserver(this);
         setTitle("Antiprimes");
 
         JScrollPane list = new JScrollPane(new JList(display));
@@ -35,7 +37,7 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 sequence.computeNext();
-                updateDisplay();
+                /*updateDisplay();*/
             }
         });
 
@@ -63,6 +65,10 @@ public class MainWindow extends JFrame {
         pack();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public void update() {
+        updateDisplay();
     }
 
     /**

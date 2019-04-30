@@ -1,5 +1,8 @@
 package antiprimes;
 
+import Threads.NumberProcessor;
+import Threads.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,7 @@ public class AntiPrimesSequence {
      * The numbers in the sequence.
      */
     private List<Number> antiPrimes = new ArrayList<>();
+    private List<Observer> obsList = new ArrayList<>();
 
     /**
      * Create a new sequence containing only the first antiprime (the number '1').
@@ -33,7 +37,9 @@ public class AntiPrimesSequence {
      * Find a new antiprime and add it to the sequence.
      */
     public void computeNext() {
-        antiPrimes.add(AntiPrimes.nextAntiPrimeAfter(getLast()));
+        NumberProcessor np = new NumberProcessor(this);
+        np.start();
+        /*antiPrimes.add(AntiPrimes.nextAntiPrimeAfter(getLast()));*/
     }
 
     /**
@@ -52,5 +58,20 @@ public class AntiPrimesSequence {
         if (k > n)
             k = n;
         return antiPrimes.subList(n - k, n);
+    }
+
+    public void addAntiPrime(Number number) {
+        antiPrimes.add(number);
+        notifyObserver();
+    }
+
+    public void addObserver(Observer ob) {
+        obsList.add(ob);
+    }
+
+    private void notifyObserver() {
+        for (Observer ob : obsList) {
+            ob.update();
+        }
     }
 }
